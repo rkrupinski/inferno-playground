@@ -2,7 +2,10 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src', ''), // FIXME
+  entry: [
+    'whatwg-fetch',
+    path.resolve(__dirname, 'src', 'index.jsx'),
+  ],
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'app.[hash:6].js',
@@ -15,7 +18,28 @@ module.exports = {
   },
   module: {
     rules: [
-      // FIXME
+      {
+        test: /\.jsx?/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+          },
+        ],
+      },
+      {
+        test: /\.jsx?/,
+        enforce: 'pre',
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'eslint-loader',
+            options: {
+              failOnError: true,
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [
