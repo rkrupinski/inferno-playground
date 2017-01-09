@@ -9,6 +9,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'app.[hash:6].js',
+    publicPath: '/',
   },
   resolve: {
     modules: [
